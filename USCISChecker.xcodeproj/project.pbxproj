@@ -19,6 +19,7 @@
 		907E7BB1D599421016FB4B82 /* CaseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537C6EF66EBDE92E2DBC71DC /* CaseStoreTests.swift */; };
 		93E2AC038F06F2A602C5AB34 /* CaseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B4A7E39A5A7BB47316935 /* CaseStatus.swift */; };
 		9A8951FDDA02A01CDC597884 /* USCISClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */; };
+		A1CF4B8098E5BC74A00E4854 /* WebStatusFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */; };
 		D1EAB31726746C8575227C0D /* ReceiptValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */; };
 		ED9E1AE30D57948D8EA4D560 /* CaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554EBA30390AF90E83636F31 /* CaseStore.swift */; };
 		EF300D1AA3BCC20215FCABF8 /* AddCaseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC118B5658E729C15A2D38D9 /* AddCaseSheet.swift */; };
@@ -47,6 +48,7 @@
 		64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = USCISCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84433F486D566B2EB5BE9551 /* CaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseListView.swift; sourceTree = "<group>"; };
+		9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebStatusFetcher.swift; sourceTree = "<group>"; };
 		A82DB50A45D542EF7481DA5F /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		B4D517B393E8DC583A083E84 /* CaseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseDetailView.swift; sourceTree = "<group>"; };
 		B6CA85BCA991B70A05E9A80E /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */,
+				9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				D1EAB31726746C8575227C0D /* ReceiptValidator.swift in Sources */,
 				54FDF3C043857000F347CC8A /* USCISCheckerApp.swift in Sources */,
 				9A8951FDDA02A01CDC597884 /* USCISClient.swift in Sources */,
+				A1CF4B8098E5BC74A00E4854 /* WebStatusFetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,7 +4,11 @@ enum USCISError: Error {
     case invalidResponse
 }
 
-struct USCISClient {
+protocol StatusFetching {
+    func fetchStatus(receiptNumber: String) async throws -> CaseStatus
+}
+
+struct USCISClient: StatusFetching {
     let session: URLSession
 
     init(session: URLSession = .shared) {
@@ -21,10 +25,14 @@ struct USCISClient {
         )
         request.httpBody = "appReceiptNum=\(receiptNumber)&initCaseSearch=CHECK+STATUS".data(using: .utf8)
 
-        let (data, _) = try await session.data(for: request)
+        let (data, response) = try await session.data(for: request)
+        if let http = response as? HTTPURLResponse {
+            print("[USCISClient] HTTP \(http.statusCode)")
+        }
         guard let html = String(data: data, encoding: .utf8) else {
             throw USCISError.invalidResponse
         }
+        print("[USCISClient] Response preview:\n\(html.prefix(800))")
         return try parseHTML(html)
     }
 

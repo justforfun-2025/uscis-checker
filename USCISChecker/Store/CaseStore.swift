@@ -6,13 +6,13 @@ class CaseStore: ObservableObject {
     @Published var isRefreshing = false
     @Published var errorMessage: String?
 
-    private let client: USCISClient
+    private let fetcher: any StatusFetching
     private let notificationManager = NotificationManager()
     private let defaults: UserDefaults
     private let defaultsKey = "uscis_cases"
 
-    init(client: USCISClient = USCISClient(), defaults: UserDefaults = .standard) {
-        self.client = client
+    init(fetcher: (any StatusFetching)? = nil, defaults: UserDefaults = .standard) {
+        self.fetcher = fetcher ?? WebStatusFetcher()
         self.defaults = defaults
         load()
     }
@@ -30,10 +30,8 @@ class CaseStore: ObservableObject {
     func refreshAll() async {
         isRefreshing = true
         errorMessage = nil
-        await withTaskGroup(of: Void.self) { group in
-            for record in cases {
-                group.addTask { await self.refresh(record) }
-            }
+        for record in cases {
+            await refresh(record)
         }
         isRefreshing = false
     }
@@ -41,7 +39,7 @@ class CaseStore: ObservableObject {
     func refresh(_ record: CaseRecord) async {
         guard cases.contains(where: { $0.id == record.id }) else { return }
         do {
-            let status = try await client.fetchStatus(receiptNumber: record.receiptNumber)
+            let status = try await fetcher.fetchStatus(receiptNumber: record.receiptNumber)
             guard let index = cases.firstIndex(where: { $0.id == record.id }) else { return }
             let oldTitle = cases[index].lastStatus?.title
             cases[index].lastStatus = status
@@ -52,8 +50,8 @@ class CaseStore: ObservableObject {
             }
         } catch {
             guard let index = cases.firstIndex(where: { $0.id == record.id }) else { return }
-            cases[index].errorMessage = "Failed to refresh status"
-            errorMessage = "Failed to refresh \(cases[index].displayName)"
+            cases[index].errorMessage = error.localizedDescription
+            errorMessage = "Failed to refresh \(cases[index].displayName): \(error.localizedDescription)"
         }
         save()
     }
