@@ -1,4 +1,5 @@
 import WebKit
+import UIKit
 
 @MainActor
 class WebStatusFetcher: NSObject, StatusFetching {
@@ -6,13 +7,15 @@ class WebStatusFetcher: NSObject, StatusFetching {
     private var continuation: CheckedContinuation<CaseStatus, Error>?
 
     override init() {
-        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 375, height: 812))
+        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         super.init()
         webView.navigationDelegate = self
+        webView.isHidden = true
     }
 
     func fetchStatus(receiptNumber: String) async throws -> CaseStatus {
-        try await withCheckedThrowingContinuation { continuation in
+        attachToWindowIfNeeded()
+        return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
             let url = URL(string: "https://egov.uscis.gov/casestatus/mycasestatus.do")!
             var request = URLRequest(url: url)
@@ -21,6 +24,15 @@ class WebStatusFetcher: NSObject, StatusFetching {
             request.httpBody = "appReceiptNum=\(receiptNumber)&initCaseSearch=CHECK+STATUS".data(using: .utf8)
             webView.load(request)
         }
+    }
+
+    private func attachToWindowIfNeeded() {
+        guard webView.window == nil else { return }
+        let window = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first
+        window?.addSubview(webView)
     }
 
     private func extractStatus() {
