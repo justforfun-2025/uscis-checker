@@ -114,7 +114,11 @@ class WebStatusFetcher: NSObject, StatusFetching {
                 let rawDesc = dict["actionCodeDesc"] as? String ?? ""
                 return CaseStatus(title: title, description: stripHTML(rawDesc))
             }
-            for (_, value) in dict {
+            // Prefer English when both detailsEng and detailsEs are present
+            if let eng = dict["detailsEng"], let status = extractStatus(from: eng) {
+                return status
+            }
+            for (key, value) in dict where key != "detailsEs" {
                 if let nested = extractStatus(from: value) { return nested }
             }
         }
