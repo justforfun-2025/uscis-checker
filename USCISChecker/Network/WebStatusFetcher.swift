@@ -39,12 +39,17 @@ class WebStatusFetcher: NSObject, StatusFetching {
         let js = """
         (function() {
             if (document.title === "Just a moment...") return null;
-            var h1 = document.querySelector('h1');
-            if (!h1 || !h1.innerText.trim()) return null;
-            var p = h1.closest('div')?.querySelector('p') || document.querySelector('p');
+            var h1s = Array.from(document.querySelectorAll('h1'));
+            var statusH1 = h1s.find(function(h) {
+                var t = h.innerText.trim();
+                return t && t !== "Case Status Online";
+            });
+            if (!statusH1) return null;
+            var container = statusH1.closest('div');
+            var p = (container && container.querySelector('p')) || statusH1.nextElementSibling;
             return JSON.stringify({
-                title: h1.innerText.trim(),
-                description: p ? p.innerText.trim() : ''
+                title: statusH1.innerText.trim(),
+                description: (p && p.tagName === 'P') ? p.innerText.trim() : ''
             });
         })()
         """
