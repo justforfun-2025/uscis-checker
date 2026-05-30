@@ -12,15 +12,14 @@ targets:
     platform: iOS
     sources:
       - path: USCISChecker
+        excludes:
+          - Info.plist
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.uscischecker.USCISChecker
         SWIFT_VERSION: "5.9"
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
-        GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_UIBackgroundModes: fetch
-        INFOPLIST_KEY_BGTaskSchedulerPermittedIdentifiers: com.uscischecker.refresh
+        INFOPLIST_FILE: USCISChecker/Info.plist
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: "1.0"
 
