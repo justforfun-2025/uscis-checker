@@ -5,37 +5,73 @@ import UIKit
 class WebStatusFetcher: NSObject, StatusFetching {
     private let webView: WKWebView
     private var continuation: CheckedContinuation<CaseStatus, Error>?
+    private var receiptToSubmit: String?
 
     override init() {
-        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+        webView = WKWebView(frame: CGRect(x: -1000, y: -1000, width: 375, height: 812))
         super.init()
         webView.navigationDelegate = self
-        webView.isHidden = true
     }
 
     func fetchStatus(receiptNumber: String) async throws -> CaseStatus {
         attachToWindowIfNeeded()
         return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
-            let url = URL(string: "https://egov.uscis.gov/casestatus/mycasestatus.do")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.httpBody = "appReceiptNum=\(receiptNumber)&initCaseSearch=CHECK+STATUS".data(using: .utf8)
-            webView.load(request)
+            self.receiptToSubmit = receiptNumber
+            // Phase 1: load the search page (GET) so Cloudflare clears, then submit via JS
+            webView.load(URLRequest(url: URL(string: "https://egov.uscis.gov/casestatus/mycasestatus.do")!))
         }
     }
 
     private func attachToWindowIfNeeded() {
         guard webView.window == nil else { return }
-        let window = UIApplication.shared.connectedScenes
+        UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
-            .first
-        window?.addSubview(webView)
+            .first?
+            .addSubview(webView)
     }
 
+    // Phase 1: search page is loaded — fill the form and submit
+    private func submitForm() {
+        let safeReceipt = receiptToSubmit ?? ""
+        let js = """
+        (function() {
+            if (document.title === "Just a moment...") return "challenge";
+            var input = document.querySelector('[name="appReceiptNum"]');
+            if (!input) return "no-form";
+            input.value = '\(safeReceipt)';
+            var btn = document.querySelector('[type="submit"]');
+            if (btn) { btn.click(); return "clicked"; }
+            var form = input.closest('form');
+            if (form) { form.submit(); return "submitted"; }
+            return "no-submit";
+        })()
+        """
+        webView.evaluateJavaScript(js) { [weak self] result, _ in
+            guard let self else { return }
+            let status = result as? String ?? "error"
+            print("[WebStatusFetcher] submit: \(status)")
+            switch status {
+            case "challenge":
+                break  // Cloudflare not resolved yet — wait for next didFinish
+            case "no-form", "no-submit", "error":
+                self.continuation?.resume(throwing: USCISError.invalidResponse)
+                self.continuation = nil
+                self.receiptToSubmit = nil
+            default:
+                self.receiptToSubmit = nil  // Form submitted — Phase 2: await results page
+            }
+        }
+    }
+
+    // Phase 2: results page loaded — extract the case status
     private func extractStatus() {
+        let debugJS = "Array.from(document.querySelectorAll('h1,h2')).map(h => h.tagName+': '+h.innerText.trim()).join('\\n')"
+        webView.evaluateJavaScript(debugJS) { result, _ in
+            print("[WebStatusFetcher] Results headings:\n\(result ?? "none")")
+        }
+
         let js = """
         (function() {
             if (document.title === "Just a moment...") return null;
@@ -59,7 +95,7 @@ class WebStatusFetcher: NSObject, StatusFetching {
                   let data = json.data(using: .utf8),
                   let extracted = try? JSONDecoder().decode(ExtractedStatus.self, from: data),
                   !extracted.title.isEmpty
-            else { return }  // Still on challenge page — wait for next didFinish
+            else { return }  // Not the results page yet — wait for next didFinish
 
             self.continuation?.resume(returning: CaseStatus(title: extracted.title, description: extracted.description))
             self.continuation = nil
@@ -69,17 +105,23 @@ class WebStatusFetcher: NSObject, StatusFetching {
 
 extension WebStatusFetcher: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        extractStatus()
+        if receiptToSubmit != nil {
+            submitForm()
+        } else if continuation != nil {
+            extractStatus()
+        }
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         continuation?.resume(throwing: error)
         continuation = nil
+        receiptToSubmit = nil
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         continuation?.resume(throwing: error)
         continuation = nil
+        receiptToSubmit = nil
     }
 }
 
