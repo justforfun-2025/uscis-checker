@@ -5,7 +5,12 @@ import UIKit
 class WebStatusFetcher: NSObject, StatusFetching {
     private let webView: WKWebView
     private var continuation: CheckedContinuation<CaseStatus, Error>?
-    private var receiptToSubmit: String?
+    private var pendingReceipt: String?
+
+    // Hash of the Next.js Server Action that returns case status.
+    // If USCIS redeploys, this may change and the app will need an update.
+    private static let nextActionId = "40122ab8357d243c3e52fd6c6786292f88f0a5be85"
+    private static let routerStateTree = "[\"\",{\"children\":[[\"locale\",\"en\",\"d\",null],{\"children\":[\"__PAGE__\",{},null,null,0]},null,null,0]},null,null,16]"
 
     override init() {
         webView = WKWebView(frame: CGRect(x: -1000, y: -1000, width: 375, height: 812))
@@ -17,9 +22,8 @@ class WebStatusFetcher: NSObject, StatusFetching {
         attachToWindowIfNeeded()
         return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
-            self.receiptToSubmit = receiptNumber
-            // Phase 1: load the search page (GET) so Cloudflare clears, then submit via JS
-            webView.load(URLRequest(url: URL(string: "https://egov.uscis.gov/casestatus/mycasestatus.do")!))
+            self.pendingReceipt = receiptNumber
+            webView.load(URLRequest(url: URL(string: "https://egov.uscis.gov/")!))
         }
     }
 
@@ -32,84 +36,107 @@ class WebStatusFetcher: NSObject, StatusFetching {
             .addSubview(webView)
     }
 
-    // Phase 1: search page is loaded — fill the form and submit
-    private func submitForm() {
-        let safeReceipt = receiptToSubmit ?? ""
-        let js = """
-        (function() {
-            if (document.title === "Just a moment...") return "challenge";
-            var input = document.querySelector('[name="appReceiptNum"]');
-            if (!input) return "no-form";
-            input.value = '\(safeReceipt)';
-            var btn = document.querySelector('[type="submit"]');
-            if (btn) { btn.click(); return "clicked"; }
-            var form = input.closest('form');
-            if (form) { form.submit(); return "submitted"; }
-            return "no-submit";
-        })()
-        """
-        webView.evaluateJavaScript(js) { [weak self] result, _ in
+    private func performFetchIfReady() {
+        guard let receipt = pendingReceipt, continuation != nil else { return }
+
+        webView.evaluateJavaScript("document.title") { [weak self] result, _ in
             guard let self else { return }
-            let status = result as? String ?? "error"
-            print("[WebStatusFetcher] submit: \(status)")
-            switch status {
-            case "challenge":
-                break  // Cloudflare not resolved yet — wait for next didFinish
-            case "no-form", "no-submit", "error":
-                self.continuation?.resume(throwing: USCISError.invalidResponse)
+            let title = result as? String ?? ""
+            if title.contains("Just a moment") {
+                print("[WebStatusFetcher] Cloudflare still pending, will retry on next didFinish")
+                return
+            }
+            self.pendingReceipt = nil
+            self.callServerAction(receipt: receipt)
+        }
+    }
+
+    private func callServerAction(receipt: String) {
+        let safeReceipt = receipt.replacingOccurrences(of: "\"", with: "")
+        let escapedRouterState = Self.routerStateTree
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+
+        let js = """
+        const res = await fetch("https://egov.uscis.gov/", {
+            method: "POST",
+            headers: {
+                "accept": "text/x-component",
+                "content-type": "text/plain;charset=UTF-8",
+                "next-action": "\(Self.nextActionId)",
+                "next-router-state-tree": encodeURIComponent("\(escapedRouterState)")
+            },
+            body: '["\(safeReceipt)"]',
+            credentials: "include"
+        });
+        return await res.text();
+        """
+
+        webView.callAsyncJavaScript(js, in: nil, in: .defaultClient) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let value):
+                let text = value as? String ?? ""
+                print("[WebStatusFetcher] response:\n\(text.prefix(2000))")
+                if let status = self.parseServerActionResponse(text) {
+                    self.continuation?.resume(returning: status)
+                } else {
+                    self.continuation?.resume(throwing: USCISError.invalidResponse)
+                }
                 self.continuation = nil
-                self.receiptToSubmit = nil
-            default:
-                self.receiptToSubmit = nil  // Form submitted — Phase 2: await results page
+
+            case .failure(let error):
+                print("[WebStatusFetcher] fetch error: \(error)")
+                self.continuation?.resume(throwing: error)
+                self.continuation = nil
             }
         }
     }
 
-    // Phase 2: results page loaded — extract the case status
-    private func extractStatus() {
-        let debugJS = "Array.from(document.querySelectorAll('h1,h2')).map(h => h.tagName+': '+h.innerText.trim()).join('\\n')"
-        webView.evaluateJavaScript(debugJS) { result, _ in
-            print("[WebStatusFetcher] Results headings:\n\(result ?? "none")")
+    // Next.js Server Action responses are newline-separated lines of `<index>:<json>`.
+    // Walk every JSON payload, recursively, looking for something that resembles a case status.
+    private func parseServerActionResponse(_ text: String) -> CaseStatus? {
+        for line in text.split(separator: "\n") {
+            guard let colon = line.firstIndex(of: ":") else { continue }
+            let jsonStr = String(line[line.index(after: colon)...])
+            guard let data = jsonStr.data(using: .utf8),
+                  let parsed = try? JSONSerialization.jsonObject(with: data, options: [.allowFragments])
+            else { continue }
+            if let status = extractStatus(from: parsed) { return status }
         }
+        return nil
+    }
 
-        let js = """
-        (function() {
-            if (document.title === "Just a moment...") return null;
-            var h1s = Array.from(document.querySelectorAll('h1'));
-            var statusH1 = h1s.find(function(h) {
-                var t = h.innerText.trim();
-                return t && t !== "Case Status Online";
-            });
-            if (!statusH1) return null;
-            var container = statusH1.closest('div');
-            var p = (container && container.querySelector('p')) || statusH1.nextElementSibling;
-            return JSON.stringify({
-                title: statusH1.innerText.trim(),
-                description: (p && p.tagName === 'P') ? p.innerText.trim() : ''
-            });
-        })()
-        """
-        webView.evaluateJavaScript(js) { [weak self] result, _ in
-            guard let self, self.continuation != nil else { return }
-            guard let json = result as? String,
-                  let data = json.data(using: .utf8),
-                  let extracted = try? JSONDecoder().decode(ExtractedStatus.self, from: data),
-                  !extracted.title.isEmpty
-            else { return }  // Not the results page yet — wait for next didFinish
-
-            self.continuation?.resume(returning: CaseStatus(title: extracted.title, description: extracted.description))
-            self.continuation = nil
+    private func extractStatus(from obj: Any) -> CaseStatus? {
+        if let dict = obj as? [String: Any] {
+            // Common Next.js shapes — try a few title/description key pairings
+            let titleKeys = ["title", "caseStatus", "formCaseStatus", "statusTitle", "case_status_title"]
+            let descKeys = ["description", "caseStatusDescriptionText", "statusDescription", "message", "case_status_description"]
+            for tk in titleKeys {
+                if let title = dict[tk] as? String, !title.isEmpty, title != "Case Status Online" {
+                    var desc = ""
+                    for dk in descKeys {
+                        if let d = dict[dk] as? String { desc = d; break }
+                    }
+                    return CaseStatus(title: title, description: desc)
+                }
+            }
+            for (_, value) in dict {
+                if let nested = extractStatus(from: value) { return nested }
+            }
         }
+        if let arr = obj as? [Any] {
+            for item in arr {
+                if let nested = extractStatus(from: item) { return nested }
+            }
+        }
+        return nil
     }
 }
 
 extension WebStatusFetcher: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if receiptToSubmit != nil {
-            submitForm()
-        } else if continuation != nil {
-            extractStatus()
-        }
+        performFetchIfReady()
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -122,19 +149,12 @@ extension WebStatusFetcher: WKNavigationDelegate {
 
     private func handleNavigationFailure(_ error: Error) {
         let nsError = error as NSError
-        // Cloudflare cancels the initial navigation to inject its challenge.
-        // Ignore cancellation; another didFinish will fire when the real page loads.
         if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
             print("[WebStatusFetcher] ignored cancellation (likely Cloudflare redirect)")
             return
         }
         continuation?.resume(throwing: error)
         continuation = nil
-        receiptToSubmit = nil
+        pendingReceipt = nil
     }
-}
-
-private struct ExtractedStatus: Decodable {
-    let title: String
-    let description: String
 }
