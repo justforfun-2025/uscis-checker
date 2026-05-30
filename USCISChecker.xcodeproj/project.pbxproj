@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1294691D762B18C471E970E1 /* CaseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D517B393E8DC583A083E84 /* CaseDetailView.swift */; };
+		257A624099794D0607934A01 /* CaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C538423BB570842F12735FC /* CaseRecord.swift */; };
+		272D7993AB22FB69AEDEB0D9 /* HTMLParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */; };
+		4F0C38A7E52A78CBCA2AD11D /* CaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84433F486D566B2EB5BE9551 /* CaseListView.swift */; };
+		52E815E5107D929F41FA79FB /* CaseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D7D9321CB4026758673C4D /* CaseCardView.swift */; };
+		54FDF3C043857000F347CC8A /* USCISCheckerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E188E8D2C5481FA50651635A /* USCISCheckerApp.swift */; };
+		63D797BF3C455F189EE191DE /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DB50A45D542EF7481DA5F /* ModelTests.swift */; };
+		6A0077513843794EEE2B5B34 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4028327D2726F0356B5A5642 /* NotificationManager.swift */; };
+		841FCCFD0DAF42F79539032E /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CA85BCA991B70A05E9A80E /* MockURLProtocol.swift */; };
+		907E7BB1D599421016FB4B82 /* CaseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537C6EF66EBDE92E2DBC71DC /* CaseStoreTests.swift */; };
+		93E2AC038F06F2A602C5AB34 /* CaseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B4A7E39A5A7BB47316935 /* CaseStatus.swift */; };
+		9A8951FDDA02A01CDC597884 /* USCISClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */; };
+		D1EAB31726746C8575227C0D /* ReceiptValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */; };
+		ED9E1AE30D57948D8EA4D560 /* CaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554EBA30390AF90E83636F31 /* CaseStore.swift */; };
+		EF300D1AA3BCC20215FCABF8 /* AddCaseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC118B5658E729C15A2D38D9 /* AddCaseSheet.swift */; };
+		FDE09C4F3109D3648B9CCFAA /* ReceiptValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CF8A99CDEF37C5D675A5 /* ReceiptValidationTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A8EA30929132D30348107CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 821BB22EEF17163C868E2064 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52B9C1E47D0753907F3C2059;
+			remoteInfo = USCISChecker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1C538423BB570842F12735FC /* CaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseRecord.swift; sourceTree = "<group>"; };
+		3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParsingTests.swift; sourceTree = "<group>"; };
+		4028327D2726F0356B5A5642 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		537C6EF66EBDE92E2DBC71DC /* CaseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseStoreTests.swift; sourceTree = "<group>"; };
+		554EBA30390AF90E83636F31 /* CaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseStore.swift; sourceTree = "<group>"; };
+		5C6B4A7E39A5A7BB47316935 /* CaseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseStatus.swift; sourceTree = "<group>"; };
+		5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidator.swift; sourceTree = "<group>"; };
+		63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USCISClient.swift; sourceTree = "<group>"; };
+		64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = USCISCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84433F486D566B2EB5BE9551 /* CaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseListView.swift; sourceTree = "<group>"; };
+		A82DB50A45D542EF7481DA5F /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		B4D517B393E8DC583A083E84 /* CaseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseDetailView.swift; sourceTree = "<group>"; };
+		B6CA85BCA991B70A05E9A80E /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		B6D7D9321CB4026758673C4D /* CaseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseCardView.swift; sourceTree = "<group>"; };
+		DB24CF8A99CDEF37C5D675A5 /* ReceiptValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidationTests.swift; sourceTree = "<group>"; };
+		E188E8D2C5481FA50651635A /* USCISCheckerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USCISCheckerApp.swift; sourceTree = "<group>"; };
+		EC118B5658E729C15A2D38D9 /* AddCaseSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCaseSheet.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		05A25484FD8A2E788B7D0A7C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1C538423BB570842F12735FC /* CaseRecord.swift */,
+				5C6B4A7E39A5A7BB47316935 /* CaseStatus.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0F9955BB1E02DE55FFE2BFFE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		55AD2B11F318927986CE9082 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				4028327D2726F0356B5A5642 /* NotificationManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		5BFA992060C5495254230E3C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC118B5658E729C15A2D38D9 /* AddCaseSheet.swift */,
+				B6D7D9321CB4026758673C4D /* CaseCardView.swift */,
+				B4D517B393E8DC583A083E84 /* CaseDetailView.swift */,
+				84433F486D566B2EB5BE9551 /* CaseListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		62F1BDFD1AA8E05AEDE8DDF9 /* USCISCheckerTests */ = {
+			isa = PBXGroup;
+			children = (
+				537C6EF66EBDE92E2DBC71DC /* CaseStoreTests.swift */,
+				3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */,
+				A82DB50A45D542EF7481DA5F /* ModelTests.swift */,
+				DB24CF8A99CDEF37C5D675A5 /* ReceiptValidationTests.swift */,
+				67916D463342725DB6BDD5F9 /* Helpers */,
+			);
+			path = USCISCheckerTests;
+			sourceTree = "<group>";
+		};
+		67916D463342725DB6BDD5F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B6CA85BCA991B70A05E9A80E /* MockURLProtocol.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		84D48D204F4EE6DB6BC385EA /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				554EBA30390AF90E83636F31 /* CaseStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		94968276956A99FD1D4DD00C /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
+		AF57163E41FA66A10CE1393E = {
+			isa = PBXGroup;
+			children = (
+				C7D109C46F708D5B0DCDCF30 /* USCISChecker */,
+				62F1BDFD1AA8E05AEDE8DDF9 /* USCISCheckerTests */,
+				EF1DC2C1600E7337171497A5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C7D109C46F708D5B0DCDCF30 /* USCISChecker */ = {
+			isa = PBXGroup;
+			children = (
+				E96A22DC3A43C33B89504755 /* App */,
+				05A25484FD8A2E788B7D0A7C /* Models */,
+				0F9955BB1E02DE55FFE2BFFE /* Network */,
+				55AD2B11F318927986CE9082 /* Notifications */,
+				84D48D204F4EE6DB6BC385EA /* Store */,
+				94968276956A99FD1D4DD00C /* Validation */,
+				5BFA992060C5495254230E3C /* Views */,
+			);
+			path = USCISChecker;
+			sourceTree = "<group>";
+		};
+		E96A22DC3A43C33B89504755 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E188E8D2C5481FA50651635A /* USCISCheckerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		EF1DC2C1600E7337171497A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C674A688645BABD1AB3682E /* USCISChecker.app */,
+				64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		52B9C1E47D0753907F3C2059 /* USCISChecker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7503749BC26963AB3106E2BF /* Build configuration list for PBXNativeTarget "USCISChecker" */;
+			buildPhases = (
+				546D12F77EFFC4ADB5F02223 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = USCISChecker;
+			packageProductDependencies = (
+			);
+			productName = USCISChecker;
+			productReference = 6C674A688645BABD1AB3682E /* USCISChecker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		913EBF16A2690DDC4EEDFDD8 /* USCISCheckerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D132A2662278AA0A9F96DAC /* Build configuration list for PBXNativeTarget "USCISCheckerTests" */;
+			buildPhases = (
+				E724DF7F2226A556BCE4E09A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E2B7885F5EE28599ABA0BC4A /* PBXTargetDependency */,
+			);
+			name = USCISCheckerTests;
+			packageProductDependencies = (
+			);
+			productName = USCISCheckerTests;
+			productReference = 64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		821BB22EEF17163C868E2064 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 4A9F25FE4AB6126F93B4EC40 /* Build configuration list for PBXProject "USCISChecker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AF57163E41FA66A10CE1393E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EF1DC2C1600E7337171497A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				52B9C1E47D0753907F3C2059 /* USCISChecker */,
+				913EBF16A2690DDC4EEDFDD8 /* USCISCheckerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		546D12F77EFFC4ADB5F02223 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF300D1AA3BCC20215FCABF8 /* AddCaseSheet.swift in Sources */,
+				52E815E5107D929F41FA79FB /* CaseCardView.swift in Sources */,
+				1294691D762B18C471E970E1 /* CaseDetailView.swift in Sources */,
+				4F0C38A7E52A78CBCA2AD11D /* CaseListView.swift in Sources */,
+				257A624099794D0607934A01 /* CaseRecord.swift in Sources */,
+				93E2AC038F06F2A602C5AB34 /* CaseStatus.swift in Sources */,
+				ED9E1AE30D57948D8EA4D560 /* CaseStore.swift in Sources */,
+				6A0077513843794EEE2B5B34 /* NotificationManager.swift in Sources */,
+				D1EAB31726746C8575227C0D /* ReceiptValidator.swift in Sources */,
+				54FDF3C043857000F347CC8A /* USCISCheckerApp.swift in Sources */,
+				9A8951FDDA02A01CDC597884 /* USCISClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E724DF7F2226A556BCE4E09A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				907E7BB1D599421016FB4B82 /* CaseStoreTests.swift in Sources */,
+				272D7993AB22FB69AEDEB0D9 /* HTMLParsingTests.swift in Sources */,
+				841FCCFD0DAF42F79539032E /* MockURLProtocol.swift in Sources */,
+				63D797BF3C455F189EE191DE /* ModelTests.swift in Sources */,
+				FDE09C4F3109D3648B9CCFAA /* ReceiptValidationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E2B7885F5EE28599ABA0BC4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52B9C1E47D0753907F3C2059 /* USCISChecker */;
+			targetProxy = 4A8EA30929132D30348107CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1C9731BD0E2E54ADE5D6EF4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uscischecker.USCISCheckerTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/USCISChecker.app/USCISChecker";
+			};
+			name = Debug;
+		};
+		27372075DA7AAAD8F3A6DC25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uscischecker.USCISCheckerTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/USCISChecker.app/USCISChecker";
+			};
+			name = Release;
+		};
+		44E173E64E531447E1F1611A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uscischecker.USCISChecker;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6F7533A44FED32C3B1423879 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		753CF8EC73A87C09484922D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BCF5643409EF26F5CA138B2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uscischecker.USCISChecker;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A9F25FE4AB6126F93B4EC40 /* Build configuration list for PBXProject "USCISChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				753CF8EC73A87C09484922D1 /* Debug */,
+				6F7533A44FED32C3B1423879 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5D132A2662278AA0A9F96DAC /* Build configuration list for PBXNativeTarget "USCISCheckerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C9731BD0E2E54ADE5D6EF4A /* Debug */,
+				27372075DA7AAAD8F3A6DC25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7503749BC26963AB3106E2BF /* Build configuration list for PBXNativeTarget "USCISChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCF5643409EF26F5CA138B2F /* Debug */,
+				44E173E64E531447E1F1611A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 821BB22EEF17163C868E2064 /* Project object */;
+}
