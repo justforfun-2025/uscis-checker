@@ -21,6 +21,7 @@
 		93E2AC038F06F2A602C5AB34 /* CaseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B4A7E39A5A7BB47316935 /* CaseStatus.swift */; };
 		9A8951FDDA02A01CDC597884 /* USCISClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */; };
 		A1CF4B8098E5BC74A00E4854 /* WebStatusFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */; };
+		AF88378B05B23DEEF7D32917 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 164A3BBE000C4C408A35B662 /* Assets.xcassets */; };
 		D1EAB31726746C8575227C0D /* ReceiptValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */; };
 		ED9E1AE30D57948D8EA4D560 /* CaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554EBA30390AF90E83636F31 /* CaseStore.swift */; };
 		EF300D1AA3BCC20215FCABF8 /* AddCaseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC118B5658E729C15A2D38D9 /* AddCaseSheet.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		0833A8C87D39C4100493B4E9 /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
+		164A3BBE000C4C408A35B662 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C538423BB570842F12735FC /* CaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseRecord.swift; sourceTree = "<group>"; };
 		3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParsingTests.swift; sourceTree = "<group>"; };
 		4028327D2726F0356B5A5642 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		C7D109C46F708D5B0DCDCF30 /* USCISChecker */ = {
 			isa = PBXGroup;
 			children = (
+				164A3BBE000C4C408A35B662 /* Assets.xcassets */,
 				E96A22DC3A43C33B89504755 /* App */,
 				A0EA20FF449C8630CC169E63 /* Background */,
 				05A25484FD8A2E788B7D0A7C /* Models */,
@@ -191,6 +194,7 @@
 			buildConfigurationList = 7503749BC26963AB3106E2BF /* Build configuration list for PBXNativeTarget "USCISChecker" */;
 			buildPhases = (
 				546D12F77EFFC4ADB5F02223 /* Sources */,
+				9B4DD60BD4E3709664B2AE1C /* Resources */,
 			);
 			buildRules = (
 			);
@@ -251,6 +255,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B4DD60BD4E3709664B2AE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF88378B05B23DEEF7D32917 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		546D12F77EFFC4ADB5F02223 /* Sources */ = {
