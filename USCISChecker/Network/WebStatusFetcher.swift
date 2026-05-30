@@ -109,17 +109,10 @@ class WebStatusFetcher: NSObject, StatusFetching {
 
     private func extractStatus(from obj: Any) -> CaseStatus? {
         if let dict = obj as? [String: Any] {
-            // Common Next.js shapes — try a few title/description key pairings
-            let titleKeys = ["title", "caseStatus", "formCaseStatus", "statusTitle", "case_status_title"]
-            let descKeys = ["description", "caseStatusDescriptionText", "statusDescription", "message", "case_status_description"]
-            for tk in titleKeys {
-                if let title = dict[tk] as? String, !title.isEmpty, title != "Case Status Online" {
-                    var desc = ""
-                    for dk in descKeys {
-                        if let d = dict[dk] as? String { desc = d; break }
-                    }
-                    return CaseStatus(title: title, description: desc)
-                }
+            // USCIS Server Action shape: { detailsEng: { actionCodeText, actionCodeDesc } }
+            if let title = dict["actionCodeText"] as? String, !title.isEmpty {
+                let rawDesc = dict["actionCodeDesc"] as? String ?? ""
+                return CaseStatus(title: title, description: stripHTML(rawDesc))
             }
             for (_, value) in dict {
                 if let nested = extractStatus(from: value) { return nested }
@@ -131,6 +124,17 @@ class WebStatusFetcher: NSObject, StatusFetching {
             }
         }
         return nil
+    }
+
+    private func stripHTML(_ s: String) -> String {
+        var result = ""
+        var inTag = false
+        for char in s {
+            if char == "<" { inTag = true }
+            else if char == ">" { inTag = false }
+            else if !inTag { result.append(char) }
+        }
+        return result.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
