@@ -9,7 +9,8 @@ Check your case status on demand from the app — no logging into my.uscis.gov e
 - Track multiple cases by receipt number
 - On-demand status check via the public `egov.uscis.gov` endpoint (no account needed)
 - Automatic refresh when the app comes to the foreground
-- Local notification when a case status changes
+- Periodic background refresh via `BGTaskScheduler` (iOS schedules the cadence — typically every few hours)
+- Local notification when a case status changes — fires from both foreground and background refreshes
 - Case detail view with the full USCIS description
 - Cases persist between launches (stored in `UserDefaults`)
 

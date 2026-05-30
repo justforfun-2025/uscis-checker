@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1294691D762B18C471E970E1 /* CaseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D517B393E8DC583A083E84 /* CaseDetailView.swift */; };
+		15B5C90E378A18475EA7CDDB /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833A8C87D39C4100493B4E9 /* BackgroundRefresh.swift */; };
 		257A624099794D0607934A01 /* CaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C538423BB570842F12735FC /* CaseRecord.swift */; };
 		272D7993AB22FB69AEDEB0D9 /* HTMLParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */; };
 		4F0C38A7E52A78CBCA2AD11D /* CaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84433F486D566B2EB5BE9551 /* CaseListView.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0833A8C87D39C4100493B4E9 /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
 		1C538423BB570842F12735FC /* CaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseRecord.swift; sourceTree = "<group>"; };
 		3E65C65336778C39DCAB5C8F /* HTMLParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParsingTests.swift; sourceTree = "<group>"; };
 		4028327D2726F0356B5A5642 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -46,7 +48,7 @@
 		5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidator.swift; sourceTree = "<group>"; };
 		63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USCISClient.swift; sourceTree = "<group>"; };
 		64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = USCISCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84433F486D566B2EB5BE9551 /* CaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseListView.swift; sourceTree = "<group>"; };
 		9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebStatusFetcher.swift; sourceTree = "<group>"; };
 		A82DB50A45D542EF7481DA5F /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 			path = Validation;
 			sourceTree = "<group>";
 		};
+		A0EA20FF449C8630CC169E63 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				0833A8C87D39C4100493B4E9 /* BackgroundRefresh.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
 		AF57163E41FA66A10CE1393E = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				E96A22DC3A43C33B89504755 /* App */,
+				A0EA20FF449C8630CC169E63 /* Background */,
 				05A25484FD8A2E788B7D0A7C /* Models */,
 				0F9955BB1E02DE55FFE2BFFE /* Network */,
 				55AD2B11F318927986CE9082 /* Notifications */,
@@ -218,6 +229,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 4A9F25FE4AB6126F93B4EC40 /* Build configuration list for PBXProject "USCISChecker" */;
 			developmentRegion = en;
@@ -245,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF300D1AA3BCC20215FCABF8 /* AddCaseSheet.swift in Sources */,
+				15B5C90E378A18475EA7CDDB /* BackgroundRefresh.swift in Sources */,
 				52E815E5107D929F41FA79FB /* CaseCardView.swift in Sources */,
 				1294691D762B18C471E970E1 /* CaseDetailView.swift in Sources */,
 				4F0C38A7E52A78CBCA2AD11D /* CaseListView.swift in Sources */,
@@ -324,8 +338,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6X5Z6MD8NR;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_BGTaskSchedulerPermittedIdentifiers = com.uscischecker.refresh;
+				INFOPLIST_KEY_UIBackgroundModes = fetch;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -465,8 +480,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6X5Z6MD8NR;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_BGTaskSchedulerPermittedIdentifiers = com.uscischecker.refresh;
+				INFOPLIST_KEY_UIBackgroundModes = fetch;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

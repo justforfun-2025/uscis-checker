@@ -67,8 +67,13 @@ struct CaseListView: View {
             }
         }
         .onChange(of: scenePhase) { _, newPhase in
-            if newPhase == .active {
+            switch newPhase {
+            case .active:
                 Task { await store.refreshAll() }
+            case .background:
+                BackgroundRefresh.schedule()
+            default:
+                break
             }
         }
     }
