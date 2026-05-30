@@ -46,7 +46,7 @@
 		5E5039C35A96C42FC4DC0F22 /* ReceiptValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidator.swift; sourceTree = "<group>"; };
 		63BBFD3F5B7724BF80826AE2 /* USCISClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USCISClient.swift; sourceTree = "<group>"; };
 		64642F54FD0C07429251FC37 /* USCISCheckerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = USCISCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C674A688645BABD1AB3682E /* USCISChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USCISChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84433F486D566B2EB5BE9551 /* CaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseListView.swift; sourceTree = "<group>"; };
 		9BC6E7A43BE86E432EDEF076 /* WebStatusFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebStatusFetcher.swift; sourceTree = "<group>"; };
 		A82DB50A45D542EF7481DA5F /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -218,8 +218,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 4A9F25FE4AB6126F93B4EC40 /* Build configuration list for PBXProject "USCISChecker" */;
 			developmentRegion = en;
@@ -326,6 +324,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6X5Z6MD8NR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -466,6 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6X5Z6MD8NR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

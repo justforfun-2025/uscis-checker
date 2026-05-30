@@ -1,7 +1,14 @@
 import Foundation
 
-enum USCISError: Error {
+enum USCISError: LocalizedError {
     case invalidResponse
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidResponse:
+            return "Could not read the USCIS response. The site may have changed or be temporarily unavailable."
+        }
+    }
 }
 
 protocol StatusFetching {
@@ -25,14 +32,10 @@ struct USCISClient: StatusFetching {
         )
         request.httpBody = "appReceiptNum=\(receiptNumber)&initCaseSearch=CHECK+STATUS".data(using: .utf8)
 
-        let (data, response) = try await session.data(for: request)
-        if let http = response as? HTTPURLResponse {
-            print("[USCISClient] HTTP \(http.statusCode)")
-        }
+        let (data, _) = try await session.data(for: request)
         guard let html = String(data: data, encoding: .utf8) else {
             throw USCISError.invalidResponse
         }
-        print("[USCISClient] Response preview:\n\(html.prefix(800))")
         return try parseHTML(html)
     }
 

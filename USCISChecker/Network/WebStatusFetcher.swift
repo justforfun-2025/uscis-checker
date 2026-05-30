@@ -42,10 +42,7 @@ class WebStatusFetcher: NSObject, StatusFetching {
         webView.evaluateJavaScript("document.title") { [weak self] result, _ in
             guard let self else { return }
             let title = result as? String ?? ""
-            if title.contains("Just a moment") {
-                print("[WebStatusFetcher] Cloudflare still pending, will retry on next didFinish")
-                return
-            }
+            if title.contains("Just a moment") { return }
             self.pendingReceipt = nil
             self.callServerAction(receipt: receipt)
         }
@@ -77,7 +74,6 @@ class WebStatusFetcher: NSObject, StatusFetching {
             switch result {
             case .success(let value):
                 let text = value as? String ?? ""
-                print("[WebStatusFetcher] response:\n\(text.prefix(2000))")
                 if let status = self.parseServerActionResponse(text) {
                     self.continuation?.resume(returning: status)
                 } else {
@@ -86,7 +82,6 @@ class WebStatusFetcher: NSObject, StatusFetching {
                 self.continuation = nil
 
             case .failure(let error):
-                print("[WebStatusFetcher] fetch error: \(error)")
                 self.continuation?.resume(throwing: error)
                 self.continuation = nil
             }
@@ -156,11 +151,9 @@ extension WebStatusFetcher: WKNavigationDelegate {
     }
 
     private func handleNavigationFailure(_ error: Error) {
+        // Cloudflare cancels the initial navigation to inject its challenge.
         let nsError = error as NSError
-        if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
-            print("[WebStatusFetcher] ignored cancellation (likely Cloudflare redirect)")
-            return
-        }
+        if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled { return }
         continuation?.resume(throwing: error)
         continuation = nil
         pendingReceipt = nil
