@@ -113,12 +113,21 @@ extension WebStatusFetcher: WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        continuation?.resume(throwing: error)
-        continuation = nil
-        receiptToSubmit = nil
+        handleNavigationFailure(error)
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        handleNavigationFailure(error)
+    }
+
+    private func handleNavigationFailure(_ error: Error) {
+        let nsError = error as NSError
+        // Cloudflare cancels the initial navigation to inject its challenge.
+        // Ignore cancellation; another didFinish will fire when the real page loads.
+        if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
+            print("[WebStatusFetcher] ignored cancellation (likely Cloudflare redirect)")
+            return
+        }
         continuation?.resume(throwing: error)
         continuation = nil
         receiptToSubmit = nil
