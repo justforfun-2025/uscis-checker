@@ -7,9 +7,8 @@ class WebStatusFetcher: NSObject, StatusFetching {
     private var continuation: CheckedContinuation<CaseStatus, Error>?
     private var pendingReceipt: String?
 
-    // Hash of the Next.js Server Action that returns case status.
-    // If USCIS redeploys, this may change and the app will need an update.
-    private static let nextActionId = "40b6c5a5092879ad5024c18f20498bc8b5f1c9d57e"
+    // Fallback hash used when runtime extraction fails.
+    private static let fallbackActionId = "40b6c5a5092879ad5024c18f20498bc8b5f1c9d57e"
     private static let routerStateTree = "[\"\",{\"children\":[[\"locale\",\"en\",\"d\",null],{\"children\":[\"__PAGE__\",{},null,null,0]},null,null,0]},null,null,16]"
 
     override init() {
@@ -44,11 +43,38 @@ class WebStatusFetcher: NSObject, StatusFetching {
             let title = result as? String ?? ""
             if title.contains("Just a moment") { return }
             self.pendingReceipt = nil
-            self.callServerAction(receipt: receipt)
+            self.extractActionId { actionId in
+                self.callServerAction(receipt: receipt, actionId: actionId)
+            }
         }
     }
 
-    private func callServerAction(receipt: String) {
+    // Scans the loaded Next.js page for the Server Action hash embedded in RSC flight data.
+    // Falls back to the hardcoded value if the pattern isn't found.
+    private func extractActionId(completion: @escaping (String) -> Void) {
+        let js = """
+        (function() {
+            const scripts = [...document.querySelectorAll('script')]
+                .map(s => s.textContent || '').join('');
+            const flight = (window.__next_f || [])
+                .map(item => Array.isArray(item) ? item.join(' ') : String(item))
+                .join(' ');
+            const combined = scripts + ' ' + flight;
+            const m = combined.match(/\\$ACTION_ID_([0-9a-f]{40,})/);
+            return m ? m[1] : null;
+        })();
+        """
+        webView.evaluateJavaScript(js) { [weak self] result, _ in
+            guard let self else { return }
+            if let extracted = result as? String, !extracted.isEmpty {
+                completion(extracted)
+            } else {
+                completion(Self.fallbackActionId)
+            }
+        }
+    }
+
+    private func callServerAction(receipt: String, actionId: String) {
         let safeReceipt = receipt.replacingOccurrences(of: "\"", with: "")
         let escapedRouterState = Self.routerStateTree
             .replacingOccurrences(of: "\\", with: "\\\\")
@@ -60,7 +86,7 @@ class WebStatusFetcher: NSObject, StatusFetching {
             headers: {
                 "accept": "text/x-component",
                 "content-type": "text/plain;charset=UTF-8",
-                "next-action": "\(Self.nextActionId)",
+                "next-action": "\(actionId)",
                 "next-router-state-tree": encodeURIComponent("\(escapedRouterState)")
             },
             body: '["\(safeReceipt)"]',
