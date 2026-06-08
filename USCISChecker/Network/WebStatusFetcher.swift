@@ -9,7 +9,7 @@ class WebStatusFetcher: NSObject, StatusFetching {
 
     // Hash of the Next.js Server Action that returns case status.
     // If USCIS redeploys, this may change and the app will need an update.
-    private static let nextActionId = "40122ab8357d243c3e52fd6c6786292f88f0a5be85"
+    private static let nextActionId = "40b6c5a5092879ad5024c18f20498bc8b5f1c9d57e"
     private static let routerStateTree = "[\"\",{\"children\":[[\"locale\",\"en\",\"d\",null],{\"children\":[\"__PAGE__\",{},null,null,0]},null,null,0]},null,null,16]"
 
     override init() {
